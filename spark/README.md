@@ -1,7 +1,7 @@
 Quick HDP Setup
 =======
 
-## Get started really fast.
+## Get started.
 
 ```
 # Install VirtualBox 5 or later.
