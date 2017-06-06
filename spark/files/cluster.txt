@@ -4,25 +4,25 @@
     "host_groups": [
         {
           "hosts": [
-              { "fqdn": "ambari-server.support.com" }
+              { "fqdn": "server.support.com" }
           ],
           "name": "host_group_1",
           "configurations" : [ ]
         },
         {
           "hosts": [
-              { "fqdn": "ambari-slave1.support.com" }
+              { "fqdn": "slave1.support.com" }
           ],
           "name": "host_group_2",
           "configurations" : [ ]
         },
         {
           "hosts": [
-              { "fqdn": "ambari-slave2.support.com" }
+              { "fqdn": "slave2.support.com" }
           ],
           "name": "host_group_3",
           "configurations" : [ ]
         }
     ],
-  "Clusters" : {"cluster_name":"supportLab"}
+  "Clusters" : {"cluster_name":"AtScaleLab"}
 }
