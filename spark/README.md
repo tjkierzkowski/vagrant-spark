@@ -120,6 +120,68 @@ password: vagrant):
 ```
 % kinit vagrant@EXAMPLE.COM
 ```
+### Set up KDC and KDC Admin to enable Kerberos in Ambari
+
+-Create the Kerberos Database
+
+Use the utility kdb5_util to create the Kerberos database.
+
+RHEL/CentOS/Oracle Linux
+
+kdb5_util create -s
+
+
+-Start the KDC
+
+Start the KDC server and the KDC admin server.
+
+RHEL/CentOS/Oracle Linux 6
+
+/etc/rc.d/init.d/krb5kdc start
+
+/etc/rc.d/init.d/kadmin start
+
+
+***[Important]	Important
+When installing and managing your own MIT KDC, it is very important to set up the KDC server to auto-start on boot. For example:
+
+RHEL/CentOS/Oracle Linux 6
+
+chkconfig krb5kdc on
+
+chkconfig kadmin on
+
+
+-Create a Kerberos Admin
+
+Kerberos principals can be created either on the KDC machine itself or through the network, using an “admin” principal. The following instructions assume you are using the KDC machine and using the kadmin.local command line administration utility. Using kadmin.local on the KDC machine allows you to create principals without needing to create a separate "admin" principal before you start.
+
+***[Note]	Note
+You will need to provide these admin account credentials to Ambari when enabling Kerberos. This allows Ambari to connect to the KDC, create the cluster principals and generate the keytabs.
+
+Create a KDC admin by creating an admin principal.
+
+kadmin.local -q "addprinc admin/admin"
+
+-Confirm that this admin principal has permissions in the KDC ACL. Using a text editor, open the KDC ACL file:
+
+RHEL/CentOS/Oracle Linux
+
+vi /var/kerberos/krb5kdc/kadm5.acl
+
+
+-Ensure that the KDC ACL file includes an entry so to allow the admin principal to administer the KDC for your specific realm. When using a realm that is different than EXAMPLE.COM, be sure there is an entry for the realm you are using. If not present, principal creation will fail. For example, for an admin/admin@HADOOP.COM principal, you should have an entry:
+
+*/admin@HADOOP.COM *
+
+After editing and saving the kadm5.acl file, you must restart the kadmin process.
+
+RHEL/CentOS/Oracle Linux 6
+
+/etc/rc.d/init.d/kadmin restart
+
+
+
 
 ### Set up browser (for security)
 
