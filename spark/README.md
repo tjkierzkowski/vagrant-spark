@@ -10,15 +10,14 @@ git clone https://github.com/iandr413/vagrant-spark
 cd spark
 ln -sf profiles/spark-lab.profile current.profile
 vagrant up
-# When that finishes, open http://192.168.59.11/ or vagrant ssh ambari-server
+# When that finishes, open http://192.168.59.11:8080 or vagrant ssh ambari-server
 ```
 
 ## Some details.
 
-The currently supported OSes and the providers:
+The currently running OS:
 * CentOS 6
-* CentOS 7
-* Ubuntu 14.04
+
 
 The currently supported projects:
 * Ambari
@@ -45,69 +44,19 @@ The currently supported projects:
 ## Modify the cluster
 
 Structor supports profiles that control the configuration of the
-virtual cluster.  There are various profiles stored in the profiles
-directory including a default.profile. To pick a different profile,
-create a link in the top level directory named current.profile that
-links to the desired profile.
+virtual cluster.  
 
-Some profiles:
-* support-lab - a three node Hadoop cluster deployed via Ambari Blueprint
-* 1node-nonsecure - a single node non-secure Hadoop cluster
-* 3node-nonsecure - a three node non-secure Hadoop cluster
-* 3node-secure - a three node secure Hadoop cluster
-* 5node-nonsecure - a five node secure Hadoop cluster
+Some profile details:
+* 3node-spark - a three node Hadoop cluster deployed via Ambari Blueprint
+* Includes Kerberos,Hive,Spark
 
-You are encouraged to contribute new working profiles that can be
-shared by others.
-
-The types of control knob in the profile file are:
-* nodes - a list of virtual machines to create
-* security - a boolean for whether kerberos is enabled
-* vm_memory - the amount of memory for each vm
-* clients - a list of packages to install on client machines
-
-For each host in nodes, you define the name, ip address, and the roles for 
-that node. The available roles are:
-
-* client - client/gateway machine
-* hbase-master - HBase master
-* hbase-regionmaster - HBase region master
-* hive-db - Hive Metastore and Oozie backing mysql
-* hive-meta - Hive Metastore
-* kdc - kerberos kdc
-* nn - HDFS NameNode
-* oozie - Oozie master
-* slave - HDFS DataNode & Yarn NodeManager
-* yarn - Yarn Resource Manager and MapReduce Job History Server
-* zk - Zookeeper Server
-* proxy-server - Squid proxy server for yum caching
-* proxy-client -  Squid proxy client for yum caching
-
-This is an example of the current default.profile
-```
-{
-  "domain": "example.com",
-  "realm": "EXAMPLE.COM",
-  "security": false,
-  "vm_mem": 2048,
-  "server_mem": 300,
-  "client_mem": 200,
-  "clients" : [ "hdfs", "hive", "oozie", "pig", "tez", "yarn", "zk" ],
-  "nodes": [
-    { "hostname": "gw", "ip": "240.0.0.10", "roles": [ "client" ] },
-    { "hostname": "nn", "ip": "240.0.0.11",
-      "roles": [ "kdc", "hive-db", "hive-meta", "nn", "yarn", "zk" ] },
-    { "hostname": "slave1", "ip": "240.0.0.12", "roles": [ "oozie", "slave" ] }
-  ]
-}
-```
 
 ## Bring up the cluster
 
 Use `vagrant up` to bring up the cluster. This will take 30 to 40 minutes for 
 a 3 node cluster depending on your hardware and network connection.
 
-Use `vagrant ssh gw`` to login to the gateway machine. If you configured 
+Use `vagrant ssh server`` to login to the server machine. If you configured 
 security, you'll need to kinit before you run any hadoop commands.
 
 ## Set up on Mac
@@ -116,21 +65,11 @@ security, you'll need to kinit before you run any hadoop commands.
 
 in /etc/hosts:
 ```
-240.0.0.2 proxy.example.com
-240.0.0.10 gw.example.com
-240.0.0.11 nn.example.com
-240.0.0.12 slave1.example.com
-240.0.0.13 slave2.example.com
-240.0.0.14 slave3.example.com
+192.168.59.11 server.example.com
+192.168.59.12 slave1.example.com
+192.168.59.13 slave2.example.com
 ```
 
-### Finding the Web UIs
-
-| Server      | Non-Secure                   | Secure                        |
-|:-----------:|:----------------------------:|:-----------------------------:|
-| NameNode    | http://nn.example.com:50070/ | https://nn.example.com:50470/ |
-| ResourceMgr | http://nn.example.com:8088/  | https://nn.example.com:8090/  |
-| JobHistory  | http://nn.example.com:19888/ | https://nn.example.com:19890/ |
 
 ### Set up Kerberos (for security)
 
@@ -152,8 +91,8 @@ in /etc/krb5.conf:
 
 [realms]
   EXAMPLE.COM = {
-    kdc = nn.example.com
-    admin_server = nn.example.com
+    kdc = server.example.com
+    admin_server = server.example.com
   }
 
 [domain_realm]
