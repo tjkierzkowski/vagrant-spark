@@ -1,0 +1,58 @@
+<%#
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+-%>
+<%
+  @hs2_roles = ['hive-server2', 'hive2-server2'];
+  @hive_servers = eval(@nodes).
+    select {|node| (node[:roles] & @hs2_roles).length > 0}.
+    map{|node| node[:hostname] + "." + @domain};
+  @hsnode = (@hive_servers.size >= 1 ? @hive_servers[0] : "ERROR:NOHS2");
+  @zookeeper_servers = eval(@nodes).
+    select {|node| node[:roles].include? 'zk'}.
+    map{|node| node[:hostname] + "." + @domain + ":2181"}.join(",");
+ -%>
+[ODBC]
+# Specify any global ODBC configuration here such as ODBC tracing.
+
+[ODBC Data Sources]
+Hortonworks Hive DSN=Hortonworks Hive ODBC Driver 64-bit
+
+[Hortonworks Hive DSN]
+Description=Hortonworks Hive ODBC Driver (64-bit) DSN
+Driver=/usr/lib/hive/lib/native/Linux-amd64-64/libhortonworkshiveodbc64.so
+HiveServerType=2
+Schema=default
+UseNativeQuery=1
+
+<% if @hive_servers.length > 1 -%>
+HOST=<%= @zookeeper_servers %>
+ServiceDiscoveryMode=1
+ZKNamespace=hiveserver2
+<% else -%>
+HOST=<%= @hsnode %>
+PORT=10000
+ServiceDiscoveryMode=0
+<% end -%>
+
+<% if @security == "false" -%>
+AuthMech=2
+UID=
+<% else -%>
+AuthMech=1
+KrbHostFQDN=<%= @hsnode %>
+KrbServiceName=hive
+KrbRealm=<%= @realm %>
+<% end -%>

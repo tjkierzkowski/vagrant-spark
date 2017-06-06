@@ -1,0 +1,17 @@
+[Unit]
+Description=Apache HBase RegionServer
+After=syslog.target network.target remote-fs.target nss-lookup.target
+
+[Service]
+EnvironmentFile=/etc/systemd/system/hbase-regionserver.service.d/default.conf
+ExecStart=/usr/hdp/current/hbase-regionserver/bin/hbase-daemon.sh --config /etc/hbase/conf start regionserver
+Group=hbase
+Restart=on-failure
+Type=forking
+User=hbase
+PermissionsStartOnly=true
+ExecStartPre=/usr/bin/mkdir -p /var/run/pid/hbase
+ExecStartPre=/usr/bin/chown hbase:hbase /var/run/pid/hbase
+
+[Install]
+WantedBy=multi-user.target
