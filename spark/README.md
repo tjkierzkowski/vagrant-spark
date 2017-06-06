@@ -8,16 +8,12 @@ Structor creates Hadoops.
 ```
 # Install VirtualBox 5 or later.
 # Install Vagrant 1.8.1 or later.
-git clone https://github.com/hortonworks/support-tooling
-cd support-tooling/labs/exercises/spark
+git clone https://github.com/iandr413/vagrant-spark
+cd spark
 ln -sf profiles/spark-lab.profile current.profile
 vagrant up
 # When that finishes, open http://192.168.59.11/ or vagrant ssh ambari-server
 ```
-
-NOTE: The support-lab profile is currently inconsistent with the hostnames 
-and IPs below. It will be converted to match the rest of structor when time
-permits. This will require updates to the SME exercises as well.
 
 ## Some details.
 
