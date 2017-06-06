@@ -1,7 +1,5 @@
-# "Structor 2" -- Structor + lots of extensions
+Quick HDP Setup
 =======
-
-Structor creates Hadoops.
 
 ## Get started really fast.
 
