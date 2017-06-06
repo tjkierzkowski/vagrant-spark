@@ -3,6 +3,20 @@ Quick HDP Setup
 
 ## Get started.
 
+The software below is required to deploy and provision the clusters detailed in this document
+
+Vagrant
+https://www.vagrantup.com/
+
+Vagrant-hostmanager
+vagrant plugin install vagrant-hostmanager
+
+VirtualBox
+https://www.virtualbox.org/wiki/VirtualBox
+Git
+https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
+
+
 ```
 # Install VirtualBox 5 or later.
 # Install Vagrant 1.8.1 or later.
