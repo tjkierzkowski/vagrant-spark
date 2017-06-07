@@ -4,25 +4,25 @@
     "host_groups": [
         {
           "hosts": [
-              { "fqdn": "server.support.com" }
+              { "fqdn": "server.example.com" }
           ],
           "name": "host_group_1",
           "configurations" : [ ]
         },
         {
           "hosts": [
-              { "fqdn": "slave1.support.com" }
+              { "fqdn": "slave1.example.com" }
           ],
           "name": "host_group_2",
           "configurations" : [ ]
         },
         {
           "hosts": [
-              { "fqdn": "slave2.support.com" }
+              { "fqdn": "slave2.example.com" }
           ],
           "name": "host_group_3",
           "configurations" : [ ]
         }
     ],
-  "Clusters" : {"cluster_name":"AtScaleLab"}
+  "Clusters" : {"cluster_name":"AtScale"}
 }

@@ -11,8 +11,8 @@
   "client_mem": 1024,
 
   "security": true,
-  "domain": "support.com",
-  "realm": "SUPPORT.COM",
+  "domain": "example.com",
+  "realm": "EXAMPLE.COM",
 
   "clients" : [],
   "nodes": [
