@@ -33,7 +33,7 @@ class blueprint {
   }
  ->
   exec { "install blueprint":
-    command => "curl -iv -H \"X-Requested-By: ambari\" -X POST --data @/vagrant/files/cluster.txt -u admin:admin http://localhost:8080/api/v1/clusters/supportLab",
+    command => "curl -iv -H \"X-Requested-By: ambari\" -X POST --data @/vagrant/files/cluster.txt -u admin:admin http://localhost:8080/api/v1/clusters/AtScale",
     path => $path,
   }
 }

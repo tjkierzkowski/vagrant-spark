@@ -1,7 +1,7 @@
 {
   "os": "centos6",
-  "ambari_version": "2.4.1.0",
-  "hdp_short_version": "2.5.0",
+  "ambari_version": "2.5.0.3",
+  "hdp_short_version": "2.5.5",
 
   "vm_mem": 3072,
   "vm_cpus": 2,
