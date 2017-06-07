@@ -33,19 +33,14 @@ The currently running OS:
 * CentOS 6
 
 
-The currently supported projects:
+The HDP components:
 * Ambari
 * Ambari Views
-* Flume
-* HBase
 * HDFS
 * Hive
-* Hive 2
 * Hive ODBC Client
 * HiveServer 2
-* Kafka
 * MapReduce
-* Oozie
 * Pig
 * Postgres
 * Slider
@@ -54,6 +49,7 @@ The currently supported projects:
 * Wildfly (known better as JBoss)
 * Yarn
 * Zookeeper
+* Ranger
 
 ## Modify the cluster
 
@@ -62,7 +58,7 @@ virtual cluster.
 
 Some profile details:
 * 3node-spark - a three node Hadoop cluster deployed via Ambari Blueprint
-* Includes Kerberos,Hive,Spark
+* Includes Kerberos,Hive,Spark,Ranger
 
 
 ## Bring up the cluster
