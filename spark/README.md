@@ -49,7 +49,6 @@ The HDP components:
 * Wildfly (known better as JBoss)
 * Yarn
 * Zookeeper
-* Ranger
 
 ## Modify the cluster
 
@@ -58,7 +57,7 @@ virtual cluster.
 
 Some profile details:
 * 3node-spark - a three node Hadoop cluster deployed via Ambari Blueprint
-* Includes Kerberos,Hive,Spark,Ranger
+* Includes Kerberos,Hive,Spark
 
 
 ## Bring up the cluster
@@ -80,6 +79,8 @@ in /etc/hosts:
 192.168.59.13 slave2.example.com
 ```
 
+## Logins to the nodes
+root/hadoop
 
 ### Set up Kerberos (for security)
 
