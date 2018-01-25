@@ -1,31 +1,40 @@
 Quick HDP Setup
 =======
 
-## Get started.
+## Getting started
 
 The software below is required to deploy and provision the clusters detailed in this document
 
-Vagrant
-https://www.vagrantup.com/
+* [Vagrant](https://www.vagrantup.com/)
+* [VirtualBox](https://www.virtualbox.org/wiki/VirtualBox)
+* [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
 
-Vagrant-hostmanager
+* [Vagrant-hostmanager](https://github.com/devopsgroup-io/vagrant-hostmanager)
+
+If you are are on a Mac, [Homebrew](https://brew.sh/) and [Homebrew Casks](https://caskroom.github.io/) can be used to install all the above, except the hostmanager plugin, is done with Vagrant.  After installing Homebrew and Homebrew Cask tap, run the following commands:
+
+```
+# Git
+brew install git
+# Vagrant and Virtualbox
+brew cask install vagrant virtualbox
+# Vagrant-hostmanager plugin
 vagrant plugin install vagrant-hostmanager
+```
 
-VirtualBox
-https://www.virtualbox.org/wiki/VirtualBox
-Git
-https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
-
+## Quick Start
+Be sure to install the requirements above in [Getting Started](#getting-started). Clone this repository and run the following commands below to spin a the 3 node cluster.
 
 ```
 # Install VirtualBox 5 or later.
 # Install Vagrant 1.8.1 or later.
-git clone https://github.com/iandr413/vagrant-spark
-cd spark
-ln -sf profiles/spark-lab.profile current.profile
+cd vagrant-spark/spark
+ln -sf profiles/3node-spark.profile current.profile
 vagrant up
-# When that finishes, open http://192.168.59.11:8080 or vagrant ssh ambari-server
 ```
+
+Finally, when that finishes, open http://192.168.59.11:8080 for [Ambari](https://ambari.apache.org/) or ```vagrant ssh server``` to access the Ambari server VM.
+
 
 ## Some details.
 
@@ -52,8 +61,8 @@ The HDP components:
 
 ## Modify the cluster
 
-Structor supports profiles that control the configuration of the
-virtual cluster.  
+[Structor](https://github.com/hortonworks/structor) supports profiles that control the configuration of the
+virtual cluster.
 
 Some profile details:
 * 3node-spark - a three node Hadoop cluster deployed via Ambari Blueprint
@@ -62,10 +71,10 @@ Some profile details:
 
 ## Bring up the cluster
 
-Use `vagrant up` to bring up the cluster. This will take 30 to 40 minutes for 
+Use ```vagrant up``` to bring up the cluster. This will take 30 to 40 minutes for 
 a 3 node cluster depending on your hardware and network connection.
 
-Use `vagrant ssh server`` to login to the server machine. If you configured 
+Use ```vagrant ssh server``` to login to the server machine. If you configured 
 security, you'll need to kinit before you run any hadoop commands.
 
 ## Set up on Mac
