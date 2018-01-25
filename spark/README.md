@@ -5,8 +5,8 @@ Quick HDP Setup
 
 The software below is required to deploy and provision the clusters detailed in this document
 
-* [Vagrant](https://www.vagrantup.com/)
-* [VirtualBox](https://www.virtualbox.org/wiki/VirtualBox)
+* [Vagrant](https://www.vagrantup.com/) - _5.x or later_
+* [VirtualBox](https://www.virtualbox.org/wiki/VirtualBox) - _1.8.1 or later_
 * [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
 
 * [Vagrant-hostmanager](https://github.com/devopsgroup-io/vagrant-hostmanager)
@@ -23,14 +23,18 @@ vagrant plugin install vagrant-hostmanager
 ```
 
 ## Quick Start
-Be sure to install the requirements above in [Getting Started](#getting-started). Clone this repository and run the following commands below to spin a the 3 node cluster.
+> Be sure to install the requirements in [Getting Started](#getting-started).
+
+Clone this repository...
+
+```$ git clone https://github.com/iandr413/vagrant-spark.git```
+
+...and run the following commands below to spin a the 3 node cluster.
 
 ```
-# Install VirtualBox 5 or later.
-# Install Vagrant 1.8.1 or later.
-cd vagrant-spark/spark
-ln -sf profiles/3node-spark.profile current.profile
-vagrant up
+$ cd vagrant-spark/spark
+$ ln -sf profiles/3node-spark.profile current.profile
+$ vagrant up
 ```
 
 Finally, when that finishes, open http://192.168.59.11:8080 for [Ambari](https://ambari.apache.org/) or ```vagrant ssh server``` to access the Ambari server VM.
